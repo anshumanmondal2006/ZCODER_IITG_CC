@@ -35,14 +35,16 @@ const io=new Server(server,{
 })
 
 io.on('connection',(socket)=>{
+    //console.log(`${socket.id} connectd`);
 
     socket.on('joinRoom',(room)=>{
+       // console.log(`${socket.id} has joined the room!`);
         socket.join(room);
         socket.to(room).emit('welcomeMsg',`${socket.id} has entered the chat`)
     })
 
     socket.on('newmessage',({postmsg,id})=>{
-        
+        //console.log(postmsg +`from ${socket.id}`);
         socket.to(id).emit('getmessage',postmsg);
     })
     socket.on('disconnect',()=>{
