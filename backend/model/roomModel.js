@@ -8,6 +8,10 @@ const RoomSchema=new mongoose.Schema({
     roomPassword:{
         type:String,
         required:true
+    },
+    message:{
+        type:[String],
+        ref:'message',
     }
 })
 const Room=mongoose.model('room',RoomSchema);

@@ -2,16 +2,17 @@
 
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
-
+import { Alert } from '@mui/material';
 const JoinRoom = () => {
 
   const [roomList, setRoomList] = useState(null);
+  const [status,setAlertStatus]=useState(null);
 
   useEffect(() => {
 
     const getAllrooms = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/room/getallrooms');
+        const res = await axios.get('http://localhost:5050/api/room/getallrooms');
         setRoomList(res.data);
       } catch (err) {
         console.log(err);
@@ -22,37 +23,34 @@ const JoinRoom = () => {
 
   }, [])
 
-  
-
-  const [roomName, setRoomName] = useState("");
-  const [roomPassword, setRoomPassword] = useState("");
-  const handleJoinRoom = async () => {
+  const handleJoinRoom = async (room) => {
+    console.log(room);
     try {
-      const res = await axios.post("http://localhost:5000/api/room/joinroom", { roomName, roomPassword });
+      const res = await axios.post("http://localhost:5050/api/room/joinroom", { roomName:room.roomName, roomPassword:room.roomPassword });
       console.log(res.data);
-      setRoomName("");
-      setRoomPassword("");
-      window.location.href=`/room?id=${res.data._id}`
+      setAlertStatus('success');
+      window.location.href = `/room?id=${res.data._id}`
     } catch (err) {
+      setAlertStatus('error');
       console.log(err);
     }
   }
   return (
     <React.Fragment>
-      <div className='joinRoom_section'>
-        <input type='text' placeholder='Room Name' value={roomName} onChange={(e) => setRoomName(e.target.value)}></input>
-        <input type='text' placeholder='Room id' value={roomPassword} onChange={(e) => setRoomPassword(e.target.value)}></input>
-        <button onClick={() => handleJoinRoom()}>Join Room</button>
+    {status && <Alert className='fixed top-0' severity={status && status}>{status==='success'?"Room joined successfully! Redirecting...":"Error in joining the room!"}</Alert>}
+      <div className='bg-black p-4 text-white w-full h-full'>
+        <p className='text-2xl'>Zcoder</p>
+        <p className='mt-2'>Available Rooms:</p>
+        <div className='w-full h-fit bg-slate-700 rounded-lg p-4'>
+          {roomList && roomList.map((room, ind) => (
+            <div key={ind} className='room_display' style={{ 'marginBottom': '1rem' }}>
+              <h3>{room.roomName.toUpperCase()}</h3>
+              <button className='bg-green-600 px-2 py-1 rounded-md w-fit h-fit' onClick={() => handleJoinRoom(room)}>Join Room</button>
+            </div>
+          ))}
+        </div>
       </div>
 
-      <div className='room_display_section'>
-        {roomList && roomList.map((room, ind) => (
-          <div key={ind} className='room_display' style={{'marginBottom':'1rem'}}>
-            <h3>{room.roomName}</h3>
-            <p>{room.roomPassword}</p>
-          </div>
-        ))}
-      </div>
     </React.Fragment>
 
   )

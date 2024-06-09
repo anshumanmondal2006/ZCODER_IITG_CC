@@ -10,11 +10,12 @@ const Room = () => {
     const id = searchParams.get('id');
     const [room, setRoom] = useState(null);
     const [postmsg, setPostMsg] = useState("");
-
+    const [msgList,setmsgList]=useState([]);
     useEffect(() => {
         const getRoom = async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/api/room/getroombyid?q=${id}`);
+                const res = await axios.get(`http://localhost:5050/api/room/getroombyid?q=${id}`);
+                setmsgList(res.data.message);
                 setRoom(res.data);
             } catch (error) {
                 console.error("Error fetching room data:", error);
@@ -24,7 +25,7 @@ const Room = () => {
     }, [id]);
 
     const socket = useMemo(() => {
-        return io("http://localhost:5000", {
+        return io("http://localhost:5050", {
             withCredentials: true,
         });
     }, []);
@@ -35,7 +36,7 @@ const Room = () => {
         socket.on('welcomeMsg', (msg) => {
             console.log(msg);
         });
-        socket.on('getmessage', (msg) => console.log(msg));
+        socket.on('getmessage', (msg) =>{ setmsgList((prev)=>[...prev,msg])});
 
         return () => {
             //socket.off('welcomeMsg');
@@ -44,25 +45,50 @@ const Room = () => {
         };
     }, [socket, id]);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
-            socket.emit('newmessage', { postmsg, id });
+        try{
+            const res=await axios.post('http://localhost:5050/api/msg/postmessage',{content:postmsg,roomId:id});
+            setmsgList((prev)=>[...prev,res.data]);
+            //console.log(res.data);
+            socket.emit('newmessage', { msg:res.data, id});
             setPostMsg("");
+        }catch(err){
+            console.log(err)
+        }
+        setPostMsg("");
     };
 
+
+
     return (
-        <div className='room_discussion_section'>
-            <h3>{room && room.roomName}</h3>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type='text'
-                    placeholder='type message'
-                    value={postmsg}
-                    onChange={(e) => setPostMsg(e.target.value)}
-                />
-                <input type='submit' value='Post' />
-            </form>
+        <>
+        <div className='w-full h-screen bg-black text-white p-2'>
+        <h1 className='text-2xl'>Zcoder</h1>
+        <div className='w-full h-full mt-8'>
+        <h2 className='text-xl'>{room && room.roomName}</h2>
+        <div className='w-3/4 h-3/4 overflow-y-auto p-4 border-white border-2 rounded-xl mb-[1rem]'>
+            {msgList && msgList.map((msg,id)=>(
+                <div key={id}  className='bg-cyan-800 px-2 py-1 h-fit  rounded-md mb-2 w-[calc(50%-2rem)] hover:bg-cyan-500'>
+                    <p style={{'wordWrap':'break-word'}} className='w-full'>{msg.content}</p>
+                </div>
+            ))}
         </div>
+        <form onSubmit={handleSubmit} className='flex items-center'>
+            <input
+                type='text'
+                placeholder='type message'
+                value={postmsg}
+                className='text-black px-2 w-1/2 py-1 mb-2 outline-none border-4 rounded-md focus:border-green-600 rounded-md mr-[1rem]'
+                onChange={(e) => setPostMsg(e.target.value)}
+            />
+            <input className='bg-green-600 cursor-pointer hover:bg-green-800 px-4 py-1 rounded-md w-fit h-fit' type='submit' value='Post'/>
+        </form>
+    </div>
+        </div>
+        
+        </>
+        
     );
 };
 

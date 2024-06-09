@@ -38,7 +38,7 @@ const getAllRooms=async(req,res)=>{
 const getRoomById=async(req,res)=>{
     const query=req.query.q;
     try{
-        const room=await Room.findById(query);
+        const room=await Room.findById(query).populate('message').sort({ updatedAt: -1 });
         return res.status(200).json(room);
     }catch(err){
         return res.status(400).send('Error in fetching the room!')
