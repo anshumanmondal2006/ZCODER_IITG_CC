@@ -15,7 +15,7 @@ const SignUp = () => {
     // const redirect = useNavigate();
 
     const handleSubmit = async () => {
-        const response = await fetch('http://localhost:3000/user/signup', {
+        const response = await fetch('http://localhost:5050/api/user/signup', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
