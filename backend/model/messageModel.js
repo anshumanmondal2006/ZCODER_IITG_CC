@@ -7,6 +7,10 @@ const messageSchema=new mongoose.Schema({
     roomId:{
         type:String,
         ref:'room'
+    },
+    sender:{
+        type:'String',
+        ref:'user',
     }
 })
 const Message=mongoose.model('message',messageSchema);

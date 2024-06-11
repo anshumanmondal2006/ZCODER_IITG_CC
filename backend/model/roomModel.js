@@ -12,6 +12,10 @@ const RoomSchema=new mongoose.Schema({
     message:{
         type:[String],
         ref:'message',
+    },
+    members:{
+        type:[String],
+        ref:'user',
     }
 })
 const Room=mongoose.model('room',RoomSchema);

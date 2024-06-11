@@ -6,7 +6,7 @@ const cors=require('cors');
 const port =5050;
 const connect = require('./config/database');
 const auth=require('./middleware/auth');
-const userRouter=require('./routes/userRoute');
+//const userRouter=require('./routes/userRoute');
 const roomRouter=require('./routes/roomRoute');
 const homeRouter=require('./routes/homeRoute');
 const msgRouter=require('./routes/msgRoute');
@@ -16,42 +16,54 @@ const home = require('./pages/home/home');
 const dotenv = require('dotenv');
 const passport = require("passport");
 const session = require('express-session');
+const middleware=require('./middleware/auth');
 dotenv.config();
 const profile = require('./pages/profile/profile');
 const ask = require('./pages/problem/problem')
 app.use(express.json());
-
+app.use(express.urlencoded({ extended: false }));
 app.use(session({
-    secret: process.env.TOKEN_SECRET, // replace 'your-secret-key' with your own secret key
+    secret: process.env.TOKEN_SECRET,
     resave: false,
     saveUninitialized: true,
+    cookie: { secure: true }
 }));
-
-
-app.use(express.json());
 app.use(cors({
     origin:'http://localhost:3000',
     credentials:true,
     methods:['GET', 'POST','PUT','DELETE'],
 }))
-app.use('/api/user',userRouter);
+//app.use('/api/user',userRouter);
 app.use('/api/room',roomRouter);
 app.use('/api/home',auth,homeRouter);
+app.use('/api/problem',ask);
 app.use('/api/msg',msgRouter);
-app.use(passport.initialize());
-app.use(passport.session());
-app.use('api/problem',ask);
 app.use(profile.app);
 app.use(home.app);
+// app.get('/status', verifyToken, (req, res) => {
+//     const user = users.find(u => u.id === req.userId);
+//     res.status(200).json({ authenticated: true, user });
+//   });
 app.use(login.app);
 app.use(signup.app);
+app.get('/api/getAuth',middleware,(req,res)=>{
+    if(req.user){
+        return res.status(200).json(req.user);
+    }
+    else{
+        return res.status(400).send('You need to login first!')
+    }
+})
 connect();
 
+
+app.use(passport.initialize());
+app.use(passport.session());
 const server=createServer(app);
 server.listen(port,()=>{
     console.log(`Server is running on port ${port}`);
-})
-
+    })
+    
 const io=new Server(server,{
     cors:{
         origin:'http://localhost:3000',
