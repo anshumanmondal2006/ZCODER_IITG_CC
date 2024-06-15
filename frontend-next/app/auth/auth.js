@@ -8,7 +8,7 @@ const auth = (Component) => {
     const router = useRouter();
 
     useEffect(() => {
-      const token = window.localStorage.getItem("token");
+      const token = window.sessionStorage.getItem("token");
       if (!token) {
         router.push("/user/login");
       } else {

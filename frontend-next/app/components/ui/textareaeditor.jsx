@@ -11,7 +11,7 @@ const Testareaanswer = ({_id}) => {
     });
     useEffect(() => {
     const userdetails=async()=>{
-        const token = window.localStorage.getItem("token");
+        const token = window.sessionStorage.getItem("token");
         try {
             const res = await axios.get("http://localhost:5050/api/getAuth", {
                 headers: {
@@ -27,7 +27,7 @@ const Testareaanswer = ({_id}) => {
     userdetails();
 },[]);
     const handleanswer = async () => {
-        const token = window.localStorage.getItem("token");
+        const token = window.sessionStorage.getItem("token");
         try {
             if(addAnswer.answer===""){
                 alert("Please enter the answer first");

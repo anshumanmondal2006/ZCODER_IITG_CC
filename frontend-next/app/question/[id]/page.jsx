@@ -1,11 +1,12 @@
 "use client";
 import auth from "@/app/auth/auth";
+import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { FiClock } from "react-icons/fi";
 import { BiMessageAltCheck } from "react-icons/bi";
 import Testareaanswer from "@/app/components/ui/textareaeditor";
-
+import Navbar from "@/app/components/ui/Navbar";
 const QuestionPage = ({ params }) => {
     const _id = params.id;
     const [question_, setQuestion_] = useState(null);
@@ -13,7 +14,7 @@ const QuestionPage = ({ params }) => {
     const [error, setError] = useState(null);
     useEffect(() => {
         const fetchQuestion = async () => {
-            const token = window.localStorage.getItem("token");
+            const token = window.sessionStorage.getItem("token");
             try {
                 const response = await axios.get(`http://localhost:5050/api/problem/${_id}`, {
                     headers: {
@@ -86,14 +87,16 @@ const QuestionPage = ({ params }) => {
                 <div className="answer__username font-medium text-sm dark:text-white text-black capitalize">{answer.name}</div>
                 <div className="answer__time text-2 text-gray-600 dark:tex-white flex text-center align-middle ">{answer.timeAgo_}</div>
             </div>
-            <div className="answer__text mt-2 text-sm text-gray-800 font-light" style={{ whiteSpace: 'pre-wrap' }}>{answer.answer}</div>
+            <div className="answer__text mt-2 text-sm text-white font-light" style={{ whiteSpace: 'pre-wrap' }}>{answer.answer}</div>
             <div className="line border-gray-200 border border-solid mx-16 my-5"></div>
         </div>
     ));
     // Replace the original code with updatedAnswers
     // {no_of_answers > 0 && updatedAnswers}
     return (
-        <div className="bg-gray-100 w-screen py-4 h-full">
+        <React.Fragment>
+        <Navbar />
+        <div className="bg-black text-white w-screen py-4 h-full">
             <div className=" mx-14 h-auto">
             <div className="username font-medium text-sm dark:text-white text-black mt-8 capitalize">{name}</div>
             <h5 className="title text-2xl font-semibold mt-1">{title}</h5>
@@ -108,9 +111,9 @@ const QuestionPage = ({ params }) => {
                 </div>
             </div>
             <div className="tags mt-2">
-                {tag.map((tag, index) => (
-                    <span key={index} className="bg-blue-100 text-blue-500 text-2 font-medium me-2 px-3.5 py-1.5 rounded dark:bg-blue-900 dark:text-blue-300 uppercase">{tag}</span>
-                ))}
+            {tag.map((tag, index) => (
+                <span key={index} className="bg-blue-100 text-blue-500 text-2 font-medium me-2 px-3.5 py-1.5 rounded dark:bg-blue-900 dark:text-blue-300 uppercase">{tag}</span>
+            ))}
             </div>
             <div className="question max-md mt-10 text-sm">{question}</div>
             <div className="answers">
@@ -128,6 +131,9 @@ const QuestionPage = ({ params }) => {
             </div>
             </div>
         </div>
+
+        </React.Fragment>
+        
     );
 }
 

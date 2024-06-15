@@ -58,7 +58,7 @@ export default function AskForm() {
             return;
         }
 
-        const token = window.localStorage.getItem("token");
+        const token = window.sessionStorage.getItem("token");
         console.log(form);
         try {
             const res = await axios.post('http://localhost:5050/api/problem/ask', form, {
@@ -80,7 +80,7 @@ export default function AskForm() {
     return (
         <>
         <Navbar />
-        <div className="px-10 py-5 bg-gray-100" >
+        <div className="px-10 py-5 bg-black text-white" >
             <div className="heading text-3xl font-bold mb-3">Ask Question</div>
             <div className="question-title mb-6 mt-5">
                 <label htmlFor="default-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
