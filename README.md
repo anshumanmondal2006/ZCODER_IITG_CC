@@ -14,3 +14,8 @@ How to setup the project?
 6.) Signup and login 
 <br>
 7.) You are all set!
+<br>
+
+
+https://github.com/TheAdich/Zcoder/assets/128921226/7c473ef5-e9ab-4255-8be2-9f5911e74d01
+
