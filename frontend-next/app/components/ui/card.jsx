@@ -16,7 +16,7 @@ const Card = ({ problem }) => {
     }
     else if(daysDifference==0&&hoursDifference==0){
         timeAgo=`${minutesDifference} minutes ago`;
-    }else if(daysDifference==0&&minutesDifference>0){
+    }else if(daysDifference==0){
         timeAgo=`${hoursDifference} hours ago`;
     }
 

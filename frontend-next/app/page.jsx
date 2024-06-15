@@ -5,7 +5,8 @@ import { useEffect, useState } from 'react';
 import auth from './auth/auth';
 const Home = () => {
     const [problems, setProblems] = useState([]);
-    useEffect(async () => {
+    useEffect(() => {
+        const fetch = async () => {
         const token = window.localStorage.getItem("token");
         console.log(token);
         await axios.get("http://localhost:5050/api/home", {
@@ -19,6 +20,8 @@ const Home = () => {
             .catch((error) => {
                 console.log(error);
             });
+        }
+        fetch();
     }, []);
     console.log(problems);
 

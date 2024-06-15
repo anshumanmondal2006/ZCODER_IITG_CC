@@ -28,10 +28,10 @@ const auth = (Component) => {
     }, []);
 
     if (loading) {
-      return <h1>Loading...</h1>;
+      return (<h1>Loading...</h1>);
     }
 
-    return <Component {...props} />;
+    return (<Component {...props} />);
   };
 
   return Auth;
