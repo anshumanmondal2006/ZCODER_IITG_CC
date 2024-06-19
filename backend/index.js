@@ -29,7 +29,7 @@ app.use(session({
     cookie: { secure: true }
 }));
 app.use(cors({
-    origin:['http://localhost:3000','https://zcoder-kappa.vercel.app/'],
+    origin:['http://localhost:3000','https://zcoder-kappa.vercel.app'],
     credentials:true,
     methods:['GET', 'POST','PUT','DELETE'],
 }))
@@ -66,7 +66,7 @@ server.listen(port,()=>{
     
 const io=new Server(server,{
     cors:{
-        origin:['http://localhost:3000','https://zcoder-kappa.vercel.app/'],
+        origin:['http://localhost:3000','https://zcoder-kappa.vercel.app'],
         credentials:true,
         methods:['GET', 'POST','PUT','DELETE'],
     }
