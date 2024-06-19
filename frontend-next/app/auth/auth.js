@@ -13,7 +13,7 @@ const auth = (Component) => {
         router.push("/user/login");
       } else {
         axios
-          .get("http://localhost:5050/api/getAuth", {
+          .get("https://zcoder-8u3l.onrender.com/api/getAuth", {
             headers: {
                 'Authorization': `${token}`,
             },

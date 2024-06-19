@@ -30,7 +30,7 @@ export default function Navbar() {
         const getAuthUser = async () => {
             const token = window.sessionStorage.getItem('token');
             const instance = axios.create({
-                baseURL: 'http://localhost:5050/api',
+                baseURL: 'https://zcoder-8u3l.onrender.com/api',
                 withCredentials: true,
                 headers: {
                     'Content-Type': 'application/json',

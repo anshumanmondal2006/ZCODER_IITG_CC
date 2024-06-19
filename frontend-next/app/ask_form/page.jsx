@@ -61,7 +61,7 @@ export default function AskForm() {
         const token = window.sessionStorage.getItem("token");
         console.log(form);
         try {
-            const res = await axios.post('http://localhost:5050/api/problem/ask', form, {
+            const res = await axios.post('https://zcoder-8u3l.onrender.com/api/problem/ask', form, {
                 headers: {
                     'Authorization': `${token}`
                 }
