@@ -7,7 +7,7 @@ import Link from 'next/link'
 import Cookies from "js-cookie";
 import { Alert } from "@mui/material";
 // import { cookies } from "next/headers";
-const login = () => {
+const Login = () => {
     const [form, setForm] = useState({
         email: "",
         password: "",
@@ -96,7 +96,7 @@ const login = () => {
                         </button>
                         <div className="w-full">
                             <p className="text-sm text-gray-500 text-center">
-                                Don't have an account?
+                                Do not have an account?
                             </p>
                             <Link href="/user/signup">
                                 <button
@@ -115,4 +115,4 @@ const login = () => {
     );
 };
 
-export default login;
+export default Login;

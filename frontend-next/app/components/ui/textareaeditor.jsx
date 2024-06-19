@@ -25,7 +25,7 @@ const Testareaanswer = ({_id}) => {
         }
     }
     userdetails();
-},[]);
+},[addAnswer]);
     const handleanswer = async () => {
         const token = window.sessionStorage.getItem("token");
         try {
