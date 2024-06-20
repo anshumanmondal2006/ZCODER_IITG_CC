@@ -13,7 +13,7 @@ const Testareaanswer = ({_id}) => {
     const userdetails=async()=>{
         const token = window.sessionStorage.getItem("token");
         try {
-            const res = await axios.get("https://zcoder-8u3l.onrender.com/api/getAuth", {
+            const res = await axios.get("https://zback-49lo.onrender.com/api/getAuth", {
                 headers: {
                     'Authorization': `${token}`,
                 },
@@ -33,7 +33,7 @@ const Testareaanswer = ({_id}) => {
                 alert("Please enter the answer first");
                 return;
             }
-            const res = await axios.post(`https://zcoder-8u3l.onrender.com/api/problem/${_id}/answer`, addAnswer, {
+            const res = await axios.post(`https://zback-49lo.onrender.com/api/problem/${_id}/answer`, addAnswer, {
                 headers: {
                     'Authorization': `${token}`,
                 },
