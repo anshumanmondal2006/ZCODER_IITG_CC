@@ -86,7 +86,7 @@ Zcoder/
 
 ## 🙋 Contributors
 
-- [@TheAdich](https://github.com/TheAdich)
+- [@Anshuman Mondal](https://github.com/anshumanmondal2006)
 
 ---
 
