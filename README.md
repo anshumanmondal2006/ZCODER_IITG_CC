@@ -87,10 +87,13 @@ Zcoder/
 ## 🙋 Contributors
 
 - [@Anshuman Mondal](https://github.com/anshumanmondal2006)
-- [@Ishaan](https://github.com/ishaaniitg)
+- [@Ishaan Bahl](https://github.com/ishaaniitg)
 
 ---
 
 ## 📝 License
 
 This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
+📬 **For any queries on how to test or use the project, contact:**  
+[anshuman.mondal@iitg.ac.in](mailto:anshuman.mondal@iitg.ac.in), [b.ishaan@iitg.ac.in](mailto:b.ishaan@iitg.ac.in)
+
