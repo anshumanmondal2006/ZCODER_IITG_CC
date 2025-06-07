@@ -29,7 +29,7 @@ It features user authentication, fast development workflows, and a working demo 
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/TheAdich/Zcoder.git
+   git clone https://github.com/anshumanmondal2006/ZCODER_IITG_CC.git
    ```
 
 2. **Open the project in VS Code**
