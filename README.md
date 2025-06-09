@@ -1,6 +1,6 @@
 # 💻 ZCoder
 
-**ZCoder** is a full-stack coding platform built for developers to write, run, and test code with ease. It supports real-time code editing, user authentication, and a clean, intuitive UI. Ideal for coding practice and collaborative learning.
+**ZCoder** is a full-stack coding platform built for developers to write, run, and test code with ease. It supports real-time code editing, user authentication, and a clean, intuitive UI. It's ideal for coding practice and collaborative learning.
 
 ---
 
